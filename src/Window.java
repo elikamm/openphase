@@ -74,7 +74,7 @@ public class Window extends JFrame {
             JOptionPane.showMessageDialog(
                 this,
                 "Richtige Antwort:\n" + dictionary.getCurrentAnswer(),
-                "Falsch! - ",
+                "Falsch! - openphase",
                 JOptionPane.PLAIN_MESSAGE
             );
         }
