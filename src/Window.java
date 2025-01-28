@@ -1,0 +1,94 @@
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.*;
+
+public class Window extends JFrame {
+    private Dictionary dictionary;
+
+    private JPanel wrapper;
+    private WindowQuestion question;
+    private WindowInput input;
+    private WindowPhase phase;
+
+    Window(String dictionary_path) {
+        super("openphase");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        if (dictionary_path.isEmpty()) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Bibliothek öffnen - openphase");
+
+            if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
+                System.exit(0);
+            }
+
+            dictionary_path = chooser.getSelectedFile().getPath().toString();
+        }
+
+        dictionary = new Dictionary(dictionary_path);
+        setTitle(dictionary_path + " - openphase");
+
+        wrapper = new JPanel();
+        question = new WindowQuestion();
+        input = new WindowInput(this);
+        phase = new WindowPhase();
+
+        wrapper.setLayout(new BorderLayout(10, 10));
+        wrapper.setBorder(new EmptyBorder(10, 10, 10, 10));
+        wrapper.add(question, BorderLayout.PAGE_START);
+        wrapper.add(input, BorderLayout.CENTER);
+        wrapper.add(phase, BorderLayout.PAGE_END);
+
+        add(wrapper);
+        pack();
+
+        setVisible(true);
+
+        nextQuestion();
+    }
+
+    private void nextQuestion() {
+        if (dictionary.nextQuestion()) {
+            question.setText(dictionary.getCurrentQuestion());
+            phase.setPhase(dictionary.getCurrentPhase());
+            input.setText("");
+            input.setEnabled(true);
+            input.requestFocus();
+        }
+        else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Alle Fragen sind in Phase 6.",
+                "Fertig! - openphase",
+                JOptionPane.PLAIN_MESSAGE
+            );
+            System.exit(0);
+        }
+    }
+
+    public void checkInput(String text) {
+        input.setEnabled(false);
+
+        if (!dictionary.checkInput(text)) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Richtige Antwort:\n" + dictionary.getCurrentAnswer(),
+                "Falsch! - ",
+                JOptionPane.PLAIN_MESSAGE
+            );
+        }
+
+        phase.animatePhase(dictionary.getCurrentPhase());
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1500);
+                nextQuestion();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
+}
