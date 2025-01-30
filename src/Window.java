@@ -49,22 +49,29 @@ public class Window extends JFrame {
     }
 
     private void nextQuestion() {
-        if (dictionary.nextQuestion()) {
-            question.setText(dictionary.getCurrentQuestion());
-            phase.setPhase(dictionary.getCurrentPhase());
-            input.setText("");
-            input.setEnabled(true);
-            input.requestFocus();
-        }
-        else {
-            JOptionPane.showMessageDialog(
+        if (!dictionary.nextQuestion()) {
+            int result = JOptionPane.showConfirmDialog(
                 this,
-                "Alle Fragen sind in Phase 6.",
+                "Alle Fragen sind in Phase 6.\nMöchtest Du nochmal von vorne beginnen?",
                 "Fertig! - openphase",
+                JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE
             );
-            System.exit(0);
+
+            if (result == JOptionPane.YES_OPTION) {
+                dictionary.resetPhases();
+                dictionary.nextQuestion();
+            }
+            else {
+                System.exit(0);
+            }
         }
+
+        question.setText(dictionary.getCurrentQuestion());
+        phase.setPhase(dictionary.getCurrentPhase());
+        input.setText("");
+        input.setEnabled(true);
+        input.requestFocus();
     }
 
     public void checkInput(String text) {

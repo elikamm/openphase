@@ -114,28 +114,21 @@ public class Dictionary {
         String answer = getCurrentAnswer();
 
         if (compareStrings(input, answer)) {
-            questions.set(
-                current_question,
-                new Question(
-                    getCurrentQuestion(),
-                    getCurrentAnswer(),
-                    getCurrentPhase() + 1
-                )
-            );
+            questions.get(current_question).setPhase(getCurrentPhase() + 1);
             saveQuestions();
             return true;
         }
         else {
-            questions.set(
-                current_question,
-                new Question(
-                    getCurrentQuestion(),
-                    getCurrentAnswer(),
-                    0
-                )
-            );
+            questions.get(current_question).setPhase(0);
             saveQuestions();
             return false;
         }
+    }
+
+    public void resetPhases() {
+        for (Question question : questions) {
+            question.setPhase(0);
+        }
+        saveQuestions();
     }
 }

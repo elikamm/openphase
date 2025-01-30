@@ -21,6 +21,10 @@ public class Question {
         return phase;
     }
 
+    void setPhase(int phase) {
+        this.phase = phase;
+    }
+
     String getDump() {
         return question + '\t' + answer + '\t' + phase;
     }
