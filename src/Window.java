@@ -7,6 +7,8 @@ public class Window extends JFrame {
     private Dictionary dictionary;
 
     private JPanel wrapper;
+    private WindowQuestionText question_text;
+    private WindowQuestionImage question_image;
     private WindowQuestion question;
     private WindowInput input;
     private WindowPhase phase;
@@ -30,7 +32,9 @@ public class Window extends JFrame {
         setTitle(dictionary_path + " - openphase");
 
         wrapper = new JPanel();
-        question = new WindowQuestion();
+        question_text = new WindowQuestionText();
+        question_image = new WindowQuestionImage();
+        question = new WindowQuestion(question_text, question_image);
         input = new WindowInput(this);
         phase = new WindowPhase();
 
@@ -60,14 +64,15 @@ public class Window extends JFrame {
 
             if (result == JOptionPane.YES_OPTION) {
                 dictionary.resetPhases();
-                dictionary.nextQuestion();
             }
-            else {
+
+            if (result != JOptionPane.YES_OPTION || !dictionary.nextQuestion()) {
                 System.exit(0);
             }
         }
 
-        question.setText(dictionary.getCurrentQuestion());
+        question_text.setText(dictionary.getCurrentQuestionText());
+        question_image.setImage(dictionary.getCurrentQuestionImage());
         phase.setPhase(dictionary.getCurrentPhase());
         input.setText("");
         input.setEnabled(true);

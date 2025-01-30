@@ -20,15 +20,16 @@ public class Dictionary {
             while (line != null) {
                 String[] tokens = line.split("\t");
 
-                if (tokens.length == 3) {
-                    int phase = Integer.parseInt(tokens[2]);
+                if (tokens.length == 4) {
+                    int phase = Integer.parseInt(tokens[3]);
 
                     if (phase >= 0 && phase <= 5) {
                         questions.add(
                             new Question(
                                 tokens[0],
                                 tokens[1],
-                                Integer.parseInt(tokens[2])
+                                tokens[2],
+                                phase
                             )
                         );
                     }
@@ -92,10 +93,16 @@ public class Dictionary {
         return true;
     }
 
-    public String getCurrentQuestion() {
+    public String getCurrentQuestionText() {
         if (current_question < 0) return "";
 
-        return questions.get(current_question).getQuestion();
+        return questions.get(current_question).getQuestionText();
+    }
+
+    public String getCurrentQuestionImage() {
+        if (current_question < 0) return "";
+
+        return questions.get(current_question).getQuestionImage();
     }
 
     public String getCurrentAnswer() {
