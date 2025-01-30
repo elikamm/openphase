@@ -84,7 +84,7 @@ public class Dictionary {
             do {
                 current_question = (int)Math.floor(Math.random() * questions.size());
             }
-            while (current_question == old_question || getCurrentPhase() >= 5);
+            while (current_question == old_question || getCurrentPhase() >= 5 || getCurrentPhase() >= Math.random() * 5);
         }
         else if (getCurrentPhase() >= 5) {
             return false;
