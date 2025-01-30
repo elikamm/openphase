@@ -70,6 +70,8 @@ public class Window extends JFrame {
     public void checkInput(String text) {
         input.setEnabled(false);
 
+        int old_phase = dictionary.getCurrentPhase();
+
         if (!dictionary.checkInput(text)) {
             JOptionPane.showMessageDialog(
                 this,
@@ -79,11 +81,15 @@ public class Window extends JFrame {
             );
         }
 
-        phase.animatePhase(dictionary.getCurrentPhase());
+        int new_phase = dictionary.getCurrentPhase();
+
+        if (new_phase != old_phase) {
+            phase.animatePhase(new_phase);
+        }
 
         new Thread(() -> {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(old_phase == new_phase ? 500 : 1500);
                 nextQuestion();
             }
             catch (Exception e){
