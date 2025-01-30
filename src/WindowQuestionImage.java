@@ -5,7 +5,13 @@ import java.awt.image.*;
 import java.io.*;
 
 public class WindowQuestionImage extends JLabel {
-    WindowQuestionImage() {
+    String search_path;
+
+    WindowQuestionImage(String search_path) {
+        this.search_path = search_path;
+
+        System.out.println(search_path);
+
         setPreferredSize(new Dimension(400, 0));
     }
 
@@ -13,7 +19,9 @@ public class WindowQuestionImage extends JLabel {
         BufferedImage source;
 
         try {
-            source = ImageIO.read(new File(path));
+            source = ImageIO.read(
+                new File(search_path, path)
+            );
         } 
         catch (Exception exception) {
             setIcon(null);

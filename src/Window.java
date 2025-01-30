@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.io.*;
 
 public class Window extends JFrame {
     private Dictionary dictionary;
@@ -33,7 +34,7 @@ public class Window extends JFrame {
 
         wrapper = new JPanel();
         question_text = new WindowQuestionText();
-        question_image = new WindowQuestionImage();
+        question_image = new WindowQuestionImage(new File(dictionary_path).getParent());
         question = new WindowQuestion(question_text, question_image);
         input = new WindowInput(this);
         phase = new WindowPhase();
