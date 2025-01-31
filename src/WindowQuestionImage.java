@@ -10,8 +10,6 @@ public class WindowQuestionImage extends JLabel {
     WindowQuestionImage(String search_path) {
         this.search_path = search_path;
 
-        System.out.println(search_path);
-
         setPreferredSize(new Dimension(400, 0));
     }
 

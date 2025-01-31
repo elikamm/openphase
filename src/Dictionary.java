@@ -19,8 +19,6 @@ public class Dictionary {
 
             while (line != null) {
                 String[] tokens = DictionaryParser.decode(line);
-                System.out.println("now:" + tokens.length);
-
 
                 if (tokens.length == 4) {
                     int phase = Integer.parseInt(tokens[3]);
