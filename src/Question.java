@@ -32,10 +32,13 @@ public class Question {
     }
 
     String getDump() {
-        return
-            question_text.replace(",", "\\,") + ',' +
-            question_image.replace(",", "\\,") + ',' +
-            answer.replace(",", "\\,") + ',' +
-            phase;
+        return DictionaryParser.encode(
+            new String[] {
+                question_text,
+                question_image,
+                answer,
+                String.valueOf(phase)
+            }
+        );
     }
 }

@@ -8,7 +8,7 @@ run: all
 	java -jar build/openphase.jar
 
 test: all
-	java -jar build/openphase.jar -- test/bibliothek.oph
+	java -jar build/openphase.jar -- test/bibliothek.csv
 
 build/openphase.jar: $(source_files)
 	javac -verbose -d build/classfiles $(source_files)

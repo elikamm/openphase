@@ -18,13 +18,11 @@ public class Dictionary {
             String line = reader.readLine();
 
             while (line != null) {
-                String[] tokens = line.split("(?<!\\\\),");
+                String[] tokens = DictionaryParser.decode(line);
+                System.out.println("now:" + tokens.length);
+
 
                 if (tokens.length == 4) {
-                    for (int i = 0; i < tokens.length; ++i) {
-                        tokens[i] = tokens[i].replaceAll("\\\\,", ",");
-                    }
-
                     int phase = Integer.parseInt(tokens[3]);
 
                     if (phase >= 0 && phase <= 5) {

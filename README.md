@@ -13,7 +13,7 @@ java -jar openphase.jar
 ```
 Dieser Befehl startet **openphase**.
 ```bash
-java -jar openphase.jar -- pfad/zur/bibliothek.oph
+java -jar openphase.jar -- pfad/zur/bibliothek.csv
 ```
 Dieser Befehl startet **openphase** mit der angegebenen Bibliothek.
 
@@ -21,4 +21,4 @@ Dieser Befehl startet **openphase** mit der angegebenen Bibliothek.
 ```bash
 make test
 ```
-Dieser Befehl kompiliert **openphase** und führt es auf der Testbibliothek `test/bibliothek.oph` aus.
+Dieser Befehl kompiliert **openphase** und führt es auf der Testbibliothek `test/bibliothek.csv` aus.
