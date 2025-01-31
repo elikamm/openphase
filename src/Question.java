@@ -32,6 +32,10 @@ public class Question {
     }
 
     String getDump() {
-        return question_text + '\t' + question_image + '\t' + answer + '\t' + phase;
+        return
+            question_text.replace(",", "\\,") + ',' +
+            question_image.replace(",", "\\,") + ',' +
+            answer.replace(",", "\\,") + ',' +
+            phase;
     }
 }
